@@ -1,0 +1,4 @@
+npx create-vite book-app --template react
+cd book-app
+npm install
+npm run dev
