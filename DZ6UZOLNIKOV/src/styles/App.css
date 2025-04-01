@@ -1,0 +1,132 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body,
+html {
+  width: 100%;
+  height: 100%;
+ }
+
+
+.app {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: 0.5s;
+}
+
+.container {
+  width: 700px;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 20px;
+  border-radius: 20px;
+  text-align: left;
+  backdrop-filter: blur(10px);
+   color: white;
+}
+
+.city-selector {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+  margin-bottom: 10px;
+}
+
+.city-selector input {
+  background: rgba(255, 255, 255, 0.4);
+  flex-grow: 1;
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.city-selector button {
+  background: rgba(96, 133, 255, 0.4);
+  padding: 8px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.current-weather {
+  display: flex;
+  justify-content: right;
+  align-items: center;
+  gap: 10px;
+  font-size: 32px;
+}
+
+.forecast {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.weather-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background: rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.weather-card .day {
+  flex: 1;
+  text-align: center;
+  font-size: 16px;
+}
+
+.weather-info {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.temp {
+  font-size: 16px;
+}
+
+.light-text {
+  color: white;
+}
+
+.dark-text {
+  color: #4B5563;
+}
+
+.clear {
+  background: #c1edff;
+}
+
+.rain {
+  background: #60677d;
+}
+
+.clouds {
+  background: #9b9ea7;
+}
+
+.snow {
+  background: #e5e7eb;
+}
+
+.thunderstorm {
+  background: #292f39;
+}
+
+.drizzle {
+  background: #607faa;
+}
+
+.mist {
+  background: #797e85;
+}
