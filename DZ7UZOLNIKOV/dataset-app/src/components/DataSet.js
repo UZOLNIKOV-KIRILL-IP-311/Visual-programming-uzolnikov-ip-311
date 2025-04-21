@@ -1,59 +1,48 @@
 import React, { useState } from 'react';
 
-const DataSet = ({
-  data = [],
-  headers = null,
-  renderHeader = (header) => <th>{header}</th>,
-  renderRow = (item, index) => <td>{JSON.stringify(item)}</td>,
-}) => {
-  const [selected, setSelected] = useState([]);
+const DataSet = ({ headers = [], data = [], renderHeader, renderRow, onSelectionChange }) => {
+  const [selectedRows, setSelectedRows] = useState([]);
 
   const handleRowClick = (index, event) => {
-    const isCtrlPressed = event.ctrlKey;
-
-    if (isCtrlPressed) {
-      setSelected((prevSelected) =>
-        prevSelected.includes(index)
-          ? prevSelected.filter((rowIndex) => rowIndex !== index)
-          : [...prevSelected, index]
-      );
+    const ctrl = event.ctrlKey;
+    let newSelected;
+    const alreadySelected = selectedRows.includes(index);
+    if (ctrl) {
+      if (alreadySelected) {
+        newSelected = selectedRows.filter(i => i !== index);
+      } else {
+        newSelected = [...selectedRows, index];
+      }
     } else {
-      setSelected((prevSelected) =>
-        prevSelected.includes(index) ? [] : [index]
-      );
+      newSelected = alreadySelected ? [] : [index];
     }
-  };
-
-  const getHeaders = () => {
-    if (headers) {
-      return headers.map(renderHeader);
-    } else if (data.length > 0) {
-      return Object.keys(data[0]).map((key) => renderHeader(key));
+    setSelectedRows(newSelected);
+    if (onSelectionChange) {
+      onSelectionChange(newSelected);
     }
-    return [];
-  };
-
-  const renderDataRow = (item, index) => {
-    return (
-      <tr
-        key={index}
-        className={selected.includes(index) ? 'selected' : ''}
-        onClick={(event) => handleRowClick(index, event)}
-      >
-        {Object.values(item).map((value, colIndex) =>
-          renderRow(value, colIndex)
-        )}
-      </tr>
-    );
   };
 
   return (
-    <table className="data-set">
+    <table>
       <thead>
-        <tr>{getHeaders()}</tr>
+        <tr>
+          {headers.map((header, i) => (
+            <th key={i}>{renderHeader ? renderHeader(header) : header}</th>
+          ))}
+        </tr>
       </thead>
       <tbody>
-        {data.map((item, index) => renderDataRow(item, index))}
+        {data.map((row, index) => (
+          <tr
+            key={index}
+            onClick={(e) => handleRowClick(index, e)}
+            style={{ backgroundColor: selectedRows.includes(index) ? '#b3ff9a' : 'transparent' }}
+          >
+            {Object.values(row).map((value, i) => (
+              <td key={i}>{renderRow ? renderRow(value) : value}</td>
+            ))}
+          </tr>
+        ))}
       </tbody>
     </table>
   );
